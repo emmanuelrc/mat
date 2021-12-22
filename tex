@@ -1,0 +1,145 @@
+%VARIABLES MAMOGRAFIA
+
+myFolder = uigetdir();
+fileList = dir(fullfile(folder, '* '));
+
+
+% Specify the folder where the files live.
+%myFolder = '/Users/emmanuel/Documents/MATLAB';
+% Check to make sure that folder actually exists.  Warn user if it doesn't.
+%{
+if ~isfolder(myFolder)
+    errorMessage = sprintf('Error: The following folder does not exist:\n%s\nPlease specify a new folder.', myFolder);
+    uiwait(warndlg(errorMessage));
+    myFolder = uigetdir(); % Ask for a new one.
+    if myFolder == 0
+         % User clicked Cancel
+         return;
+    end
+end
+%}
+
+% Get a list of all files in the folder with the desired file name pattern.
+filePattern = fullfile(myFolder, '* '); % Change to whatever pattern you need.
+theFiles = dir(filePattern);
+for k = 1 : length(theFiles)
+    baseFileName = theFiles(k).name;
+    fullFileName = fullfile(theFiles(k).folder, baseFileName);
+    fprintf(1, 'Now reading %s\n', fullFileName);
+    % Now do whatever you want with this file name,
+    % such as reading it in as an image array with imread()
+
+    SERIE = info.(dicomlookup('0008','103E'));
+    
+        if(SERIE == {'INSIGHT 2D R-CC  PRIME, Diagnosis'})
+    
+            SEDE = info.(dicomlookup('0008','0081'))
+            ESTUDIO = info.(dicomlookup('0008','1030'))
+            ID = info.(dicomlookup('0010','0020'))
+            SID = info.(dicomlookup('0020','0010'))
+            FECHA = info.(dicomlookup('0008','0021'))
+            DOSIS = info.(dicomlookup('0040','0316'))
+            KVP = info.(dicomlookup('0018','0060'))
+            ANGLE = info.(dicomlookup('0018','1138'))
+            FOV = info.(dicomlookup('0018','1149'))
+            EXPTIME = info.(dicomlookup('0018','8150'))
+            mA = info.(dicomlookup('0018','1151'))
+            EXP = info.(dicomlookup('0018','1153'))
+            FOCO = info.(dicomlookup('0018','1190'))
+            ANODO = info.(dicomlookup('0018','1191'))
+            ESPESOR = info.(dicomlookup('0018','11A0'))
+            FUERZA = info.(dicomlookup('0018','11A2'))
+            IMPLANTE = info.(dicomlookup('0028','1300'))
+        
+            fprintf('%i\n', KVP)
+        end
+    
+    %imageArray = imread(fullFileName);
+    %imshow(imageArray);  % Display image.
+    %drawnow; % Force display to update immediately.
+end
+%obj = images.internal.dicom.DICOMFile('100000AE');
+
+%info = dicominfo('100000AE')
+
+
+%{
+SEDE = info.(dicomlookup('0008','0081'));
+ESTUDIO = info.(dicomlookup('0008','1030'));
+ID = info.(dicomlookup('0010','0020'));
+SID = info.(dicomlookup('0020','0010'));
+FECHA = info.(dicomlookup('0008','0021'));
+SERIE = info.(dicomlookup('0008','103E'));
+DOSIS = info.(dicomlookup('0040','0316'));
+KVP = info.(dicomlookup('0018','0060'));
+ANGLE = info.(dicomlookup('0018','1138'));
+FOV = info.(dicomlookup('0018','1149'));
+EXPTIME = info.(dicomlookup('0018','8150'));
+mA = info.(dicomlookup('0018','1151'));
+EXP = info.(dicomlookup('0018','1153'));
+FOCO = info.(dicomlookup('0018','1190'));
+ANODO = info.(dicomlookup('0018','1191'));
+ESPESOR = info.(dicomlookup('0018','11A0'));
+FUERZA = info.(dicomlookup('0018','11A2'));
+IMPLANTE = info.(dicomlookup('0028','1300'));
+
+
+
+---
+
+
+
+SEDE = obj.getAttributeByName('InstitutionAddress');
+ESTUDIO = obj.getAttributeByName('StudyDescription');
+ID = obj.getAttributeByName('PatientID');
+SID = obj.getAttributeByName('StudyID');
+FECHA = obj.getAttributeByName('PerformedProcedureStepStartDate');
+SERIE = obj.getAttributeByName('SeriesDescription');
+DOSIS = obj.getAttributeByName('OrganDose');
+KVP = obj.getAttributeByName('KVP');
+ANGLE = obj.getAttributeByName('TableAngle');
+FOV = obj.getAttributeByName('FieldOfViewDimensions');
+EXPTIME = obj.getAttributeByName('ExposureTimeInuS');
+mA = obj.getAttributeByName('XrayTubeCurrentInuA');
+EXP = obj.getAttributeByName('ExposureInuAs');
+FOCO = obj.getAttributeByName('FocalSpot');
+ANODO = obj.getAttributeByName('AnodeTargetMaterial');
+ESPESOR = obj.getAttributeByName('BodyPartThickness');
+FUERZA = obj.getAttributeByName('CompressionForce');
+IMPLANTE = obj.getAttributeByName('BreastImplantPresent'
+
+
+%}
+%metadata = dicominfo('100000AE');
+
+
+%{
+SEDE = info.(dicomlookup('0008','0081'))
+ESTUDIO = info.(dicomlookup('0008','1030'))
+ID = info.(dicomlookup('0010','0020'))
+SID = info.(dicomlookup('0020','0010'))
+FECHA = info.(dicomlookup('0008','0021'))
+SERIE = info.(dicomlookup('0008','103E'))
+DOSIS = info.(dicomlookup('0040','0316'))
+KVP = info.(dicomlookup('0018','0060'))
+ANGLE = info.(dicomlookup('0018','1138'))
+FOV = info.(dicomlookup('0018','1149'))
+EXPTIME = info.(dicomlookup('0018','8150'))
+mA = info.(dicomlookup('0018','1151'))
+EXP = info.(dicomlookup('0018','1153'))
+FOCO = info.(dicomlookup('0018','1190'))
+ANODO = info.(dicomlookup('0018','1191'))
+ESPESOR = info.(dicomlookup('0018','11A0'))
+FUERZA = info.(dicomlookup('0018','11A2'))
+IMPLANTE = info.(dicomlookup('0028','1300'))
+
+%}
+
+%nameOut = dicomlookup(0040,0316)
+%nameOut = dicomlookup(0040,0302)
+
+
+
+
+
+
